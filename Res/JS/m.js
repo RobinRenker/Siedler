@@ -1,7 +1,6 @@
 /*##########################################################*/
-/*Lib by Robin Renker*/
 /*###############################*/
-/*Gets*/
+/*Size*/
 function getWinSiz() {
     var x = [];
     x[0] = window.innerWidth;
@@ -14,22 +13,10 @@ function getSizEle(elementId) {
     x[1] = document.getElementById(elementId).offsetHeight;
     return x;
 }
-function getParSize(el){
-    return [$("#"+el).parent().width(),$("#"+el).parent().height()];
-}
-function getMouPosWin() {
-    var pos = [];
-    var e = window.event;
-    pos[0] = e.clientX;
-    pos[1] = e.clientY;
-    return pos;
-}
-/*###############################*/
-/*Animate*/
-function aniWid(element, pixelSize, duration){
+function expWid(element, pixelSize, duration){
     $("#" + element).animate({width: pixelSize+"px"}, {queue: false, duration: duration});
 }
-function aniHei(element, pixelSize, duration){
+function expHei(element, pixelSize, duration){
     $("#" + element).animate({height: pixelSize+"px"}, {queue: false, duration: duration});
 }
 function aniTop(element, pixelSize, duration,queue){
@@ -43,6 +30,9 @@ function aniRig(element, pixelSize, duration,queue){
 }
 function aniBot(element, pixelSize, duration,queue){
     $(element).animate({bottom: pixelSize+"px"}, {queue: queue, duration: duration});
+}
+function getParentSize(el){
+    return [$("#"+el).parent().width(),$("#"+el).parent().height()];
 }
 /*###############################*/
 /*Element Style*/
@@ -171,15 +161,20 @@ function updRanCol(){
     }
 }
 /*###############################*/
-/*Basic*/
+/*Else*/
+function getMouPosWin() {
+    var pos = [];
+    var e = window.event;
+    pos[0] = e.clientX;
+    pos[1] = e.clientY;
+    return pos;
+}
 function addCla(element, klass){
     $('#'+element).addClass(klass);
 }
 function remCla(element, klass){
     $('#'+element).removeClass(klass);
 }
-/*###############################*/
-/*String / int*/
 function numAbr(value){
     var retVal = Math.round(value);
     if(retVal > value){
@@ -226,11 +221,23 @@ function strConStr(main,char){
     }
     return ret;
 }
-function strHasLowCas(str) {
+function hasLowCas(str) {
     return (/[a-z]/.test(str));
 }
-function strHasUppCas(str) {
+function hasUppCas(str) {
     return (/[A-Z]/.test(str));
+}
+function hasNum(str) {
+    ret = 0;
+    var list = str.split("");
+    for(var i = 0; i < list.length; i++){
+        for(var x = 0; x<nums.length; x++){
+            if(list[i] == nums[x]){
+                ret++;
+            }
+        }
+    }
+    return ret;
 }
 /*###############################*/
 /*Array*/
@@ -284,6 +291,5 @@ function loaIntDivPos(div, url, data){
             document.getElementById(div).innerHTML = result;
         }
     });
-}/**
- * Created by Admin on 27.08.2016.
- */
+}
+var nums = ["0","1","2","3","4","5","6","7","8","9"];
