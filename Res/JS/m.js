@@ -184,6 +184,9 @@ function numAbr(value){
         return retVal;
     }
 }
+function numChgVor(num) {
+    return -num;
+}
 function getScrOfEle(e){
     var el = $("#"+e);
     return [el.scrollLeft(),el.scrollTop()];
