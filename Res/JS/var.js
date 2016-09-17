@@ -11,4 +11,14 @@ map_control_drag_start_map_pos = [];
 map_control_mouse_pos = [];
 map_control_faster_zoom = false;
 //############################################################
-key_faster_zoom = 70 //F
+//Map
+map = [];
+map_images = {
+    "dirt":"../Res/Pic/dirt.png",
+    "wheat":"../Res/Pic/wheat.png",
+    "wood":"../Res/Pic/wood.png"};
+map_implements = ["wood","wheat","dirt"];
+map_max_value = 12;
+//############################################################
+//Keys
+key_faster_zoom = 70;//F

@@ -31,16 +31,15 @@ $('#mapcont_rel').mouseleave(function () {
         map_control_drag_leave();
     });
 $('#mapcont_rel').bind('mousewheel', function(e){
-    val = 40;
+    valPerc = 10;
     if(map_control_faster_zoom){
-        val = val *4;
-        console.log('dd');
+        valPerc = 30;
     }
     if(e.originalEvent.wheelDelta /120 > 0) {
-        map_control_resize(val);
+        map_control_resize(valPerc);
     }
     else{
-        map_control_resize(-val);
+        map_control_resize(-valPerc);
     }
 });
 $(document).keydown(function (event) {
@@ -56,7 +55,11 @@ $(document).keydown(function (event) {
         }
     });
 function map_control_resize(val) {
-    if(parseInt($('#map').height()) >= 0 && parseInt($('#map').width()) >= 0){
+    var todoPercW = ($('#map').width()/100)*val;
+    var todoPercH = ($('#map').height()/100)*val;
+    if(parseInt($('#map').height())+todoPercW >= 0 && parseInt($('#map').width())+todoPercH >= 0){
+
+
         if($('#map:hover').length != 0){
             var mousePosWin = getMouPosWin();
             var mousePosOld = [parseInt(window.event.pageX - parseInt($('#map').css('left'))), parseInt(window.event.pageY - parseInt($('#map').css('top')))];
@@ -68,10 +71,13 @@ function map_control_resize(val) {
             $('#map').css({top:mousePosWin[1]-(mousePosPerc[1]*(parseInt($('#map').height())/100))});
         }
         else{
-            $('#map').width(($('#map').width()+val)+"px").height(($('#map').height()+val)+"px");
-            $('#map').css({left:(parseInt($('#map').css("left").replace("px",""))-(val/2))});
-            $('#map').css({top:(parseInt($('#map').css("top").replace("px",""))-(val/2))});
+            $('#map')
+                .width(($('#map').width()+todoPercW)+"px")
+                .height(($('#map').height()+todoPercH)+"px");
+            $('#map').css({left:(parseInt($('#map').css("left").replace("px",""))-(todoPercW/2))});
+            $('#map').css({top:(parseInt($('#map').css("top").replace("px",""))-(todoPercH/2))});
         }
+        console.log($('#map').width()+" "+$('#map').height());
     }
 }
 function map_control_drag_leave() {
