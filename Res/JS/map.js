@@ -1,14 +1,20 @@
+var map = [];
+var map_images = {
+  "dirt":"../Res/Pic/dirt.png",
+  "wheat":"../Res/Pic/wheat.png",
+  "wood":"../Res/Pic/wood.png"};
 var mapJSON = [
     {
         "Column":[
-            {"master":true,"implement":"wood","value":1},
-            {"master":false,"implement":"wheat","value":2},
+            {"center":true,"implement":"wood"},
+            {"center":false,"implement":"wheat"},
         ]
     },
     {
         "Column":[
             {"master":false,"implement":"wood","value":5},
             {"master":false,"implement":"dirt","value":9}
+
         ]
     }
 ];
@@ -79,3 +85,7 @@ function map_number_get_mid(num) {
         return num/2+1;
     }
 }
+=======
+    getCenter
+}
+>>>>>>> origin/master
