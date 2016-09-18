@@ -85,7 +85,3 @@ function map_number_get_mid(num) {
         return num/2+1;
     }
 }
-=======
-    getCenter
-}
->>>>>>> origin/master
