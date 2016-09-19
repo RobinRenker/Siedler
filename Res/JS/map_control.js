@@ -102,12 +102,12 @@ function map_control_resize_field(val) {
             .width(map_field_def_size_w)
             .height(map_field_def_size_h());
     });
-    for(var i = 0; i < map.length;i++){
+    /*for(var i = 0; i < map.length;i++){
         for(var y = 0; y<map[i].length;y++){
             map[i][y]["left"] = (map[i][y]["left"]+(map[i][y]["left"]/100)*val);
             $('#'+map[i][y]["id"]).css({left:map[i][y]["left"]});
         }
-    }
+    }*/
 }
 function map_control_get_fitting_map_size(map) {
     var longest = 0;
