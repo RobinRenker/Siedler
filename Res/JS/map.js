@@ -4,7 +4,7 @@ $(window).resize(function () {
 });
 $(document).keydown(function (e) {
     if(e.which == 38){
-        map = map_create_random(20,10);
+        map = map_create_random(5,10);
         map_display(map);
         console.log("done");
     }
