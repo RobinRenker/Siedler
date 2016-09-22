@@ -1,3 +1,5 @@
 http://csshexagon.com/
+
 https://facebook.github.io/react-native/docs/tutorial.html
 greensock 
+https://jtauber.github.io/articles/css-hexagon.html

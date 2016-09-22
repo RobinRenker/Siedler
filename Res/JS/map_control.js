@@ -52,14 +52,20 @@ $(document).keydown(function (event) {
             map_control_faster_zoom = false;
         }
     });
+function map_control_field_click(id) {
+    console.log("--> "+id["id"]);
+}
 function map_control_resize(val) {
     map_control_resize_field(val);
     map_control_resize_mappos(val);
+    map_control_resize_hex();
 }
 function map_control_resize_mappos(val) {
     var sizeOld = [$('#map_abs').width(),$('#map_abs').height()];
     var todoPercW = ($('#map_abs').width()/100)*val;
     var todoPercH = ($('#map_abs').height()/100)*val;
+    var perfMapSize = map_control_get_perf_map_size(map);
+
     if(parseInt($('#map_abs').height())+todoPercW >= 0 && parseInt($('#map_abs').width())+todoPercH >= 0){
         var mousePosWin = getMouPosWin();
         var mousePosOld = [
@@ -72,8 +78,10 @@ function map_control_resize_mappos(val) {
         ];
 
         $('#map_abs')
-            .width(($('#map_abs').width()+todoPercW)+"px")
-            .height(($('#map_abs').height()+todoPercH)+"px");
+            //.width(($('#map_abs').width()+todoPercW)+"px")
+            //.height(($('#map_abs').height()+todoPercH)+"px");
+            .height(perfMapSize[0]+"px")
+            .width(perfMapSize[1]+"px");
         $('#map')
             .width($('#map_abs').width())
             .height($('#map_abs').height());
@@ -97,29 +105,50 @@ function map_control_resize_mappos(val) {
 }
 function map_control_resize_field(val) {
     map_field_def_size_w = map_field_def_size_w+ (map_field_def_size_w/100)*val;
-    $('.field').each(function () {
+    $('.map_field').each(function () {
         $(this)
             .width(map_field_def_size_w)
             .height(map_field_def_size_h());
     });
-    for(var i = 0; i < map.length;i++){
-        for(var y = 0; y<map[i].length;y++){
-            map[i][y]["left"] = (parseInt(map[i][y]["left"])+(parseInt(map[i][y]["left"])/100)*val);
-            $('#'+map[i][y]["id"]).css({left:map[i][y]["left"]});
 
-            map[i][y]["top"] = (parseInt(map[i][y]["top"])+(parseInt(map[i][y]["top"])/100)*val);
-            $('#'+map[i][y]["id"]).css({top:map[i][y]["top"]});
+    var master = map_get_master(map);
+    var smallest = map_control_read_pos_smallest();
+
+    for(var i = 0; i<map.length;i++){
+        var rowSmallest;
+        for(var y = 0; y<map[i].length;y++){
+            var elPos = map_control_read_pos(map[i][y]["id"]);
+            if(y == 0){
+                rowSmallest = elPos;
+            }
+
+            var vTop = map_control_num_diff(smallest[0],elPos[0])*(map_field_def_size_h()-map_field_def_size_ws_h());
+            var vLeft = map_control_num_diff(rowSmallest[1],elPos[1])*map_field_def_size_w;
+
+            if(elPos[0]%2 != 0 || elPos[0]%2 != -0){
+                vLeft = vLeft+(map_field_def_size_w/2);
+            }
+
+            $('#'+map[i][y]["id"]).css({top:vTop,left:vLeft});
         }
     }
 }
-function map_control_get_fitting_map_size(map) {
-    var longest = 0;
-    for(var i = 0; i<map.length;i++){
-        if(map[i].length > longest){
-            longest = map[i].length;
-        }
+function map_control_resize_hex() {
+    var vwidth1 = map_field_def_size_ws_h();
+    var vwidth2 = map_field_def_size_w/2;
+    var stylesT = {
+        'border-bottom-width':vwidth1,
+        'border-left-width':vwidth2,
+        'border-right-width':vwidth2
+    };
+    var stylesB = {
+        'border-top-width':vwidth1,
+        'border-left-width':vwidth2,
+        'border-right-width':vwidth2
     }
-    return [longest * map_field_def_size+map_field_def_size, map.length*map_field_def_size];
+    $('.map_field_hex_t').css(stylesT);
+    $('.map_field_hex_b').css(stylesB);
+    $('.map_field_hex_m').width(map_field_def_size_w).height(map_field_def_size_seiten());
 }
 function map_control_drag_leave() {
     map_control_mouse_down = false;
@@ -127,9 +156,44 @@ function map_control_drag_leave() {
     map_control_drag_start = [];
     map_control_drag_start_map_pos = [];
 }
+//################################################################
 function map_control_getCooDif(coordinates1,coordinates2){
     var ret = [];
     ret[0] = numChgVor(coordinates1[0]-coordinates2[0]);
     ret[1] = numChgVor(coordinates1[1]-coordinates2[1]);
+    return ret;
+}
+function map_control_read_pos(id){
+    var ret = id.split("field")[1];
+    var ret = ret.split("_");
+    return [parseInt(ret[0]),parseInt(ret[1])];
+}
+function map_control_read_pos_smallest(){
+    var curEl = map_control_read_pos(map[0][0]["id"]);
+
+    return [curEl[0],curEl[1]];
+}
+function map_control_num_diff(num1, num2) {
+    if(num1 > num2){
+        var tmp = num1;
+        num1 = num2;
+        num2 = tmp;
+    }
+    var c = 0;
+    while(num1 < num2){
+        c++;
+        num1++;
+    }
+    return c;
+}
+function map_control_get_perf_map_size(map) {
+    var ret = [0,0];
+    ret[0] = map.length*(map_field_def_size_h()-map_field_def_size_ws_h())+map_field_def_size_ws_h();
+    for(var i = 0; i <map.length;i++){
+        if(ret[1]<map[i].length){
+            ret[1] = map[i].length;
+        }
+    }
+    ret[1] = ret[1]*map_field_def_size_w+(map_field_def_size_w/2);
     return ret;
 }

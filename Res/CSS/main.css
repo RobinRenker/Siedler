@@ -55,35 +55,44 @@ body{
     margin:0;
     padding: 0;
     position: relative;
-    background-color: black;
+    /*background-color: black;*/
 }
-.field{
+/*#################################################*/
+/*Feld*/
+.map_field {
     margin: 0px 0px 0px 0px;
     float: left;
     background-color: transparent;
     background-size: cover;
-    overflow: visible;
+    overflow: hidden;
     position: absolute;
 }
-
-
-
-
-
-
-
-
-
-
-.tb{
-    width: 10%;
-    height: 10%;
-    background-color: black;
-    float: left;
+.map_field_hex_t{
+    width: 0;
+    border-bottom-style: solid;
+    border-bottom-color: #6C6;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-style: solid;
+    border-right-color: transparent;
 }
-.tw{
-    width: 10%;
-    height: 10%;
-    float: left;
-    background-color: yellow;
+.map_field_hex_m{
+
+    background-color: #6C6;
 }
+.map_field_hex_b{
+    width: 0;
+    border-top-style: solid;
+    border-top-color: #6C6;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-style: solid;
+    border-right-color: transparent;
+}
+
+
+
+
+
+
+

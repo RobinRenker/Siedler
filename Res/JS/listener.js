@@ -18,33 +18,3 @@ $(window).resize(function () {
 
 
 
-/*
-$(window).load(function () {
-    test();
-});
-function test() {
-    var switcher = true;
-    var cl;
-    for(var i = 0; i<9; i++) {
-        for (var y = 0; y < 9; y++) {
-            if(switcher){
-                switcher = false;
-                cl = 'tb';
-            }
-            else{
-                switcher = true;
-                cl = 'tw';  
-            }
-            document.getElementById('map').innerHTML = document.getElementById('map').innerHTML
-                + '<div class="'+cl+'"></div>';
-        }
-        if(switcher){
-            switcher = false;
-        }
-        else{
-            switcher = true;
-        }
-    }
-}
-
-*/

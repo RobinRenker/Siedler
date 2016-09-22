@@ -4,18 +4,18 @@ $(window).resize(function () {
 });
 $(document).keydown(function (e) {
     if(e.which == 38){
-        map = map_create_random(5,10);
+        map = map_create_random(10,10);
         map_display(map);
-        console.log("done");
+        map_control_resize(0);
     }
     else if(e.which == 40){
         console.log("map width: "+$('#map').width());
         console.log("map height: "+$('#map').height());
-        console.log("field width: "+$('.field').width());
-        console.log("field height: "+$('.field').height());
+        console.log("field width: "+$('.map_field').width());
+        console.log("field height: "+$('.map_field').height());
     }
     else if(e.which == 39){
-        console.log(map);
+        map_field_hex_update();
     }
 });
 function map_resize() {
@@ -54,7 +54,7 @@ function map_create_random(width,height) {
         }
     }
 
-    var master_marging = [0,0];
+    /*var master_marging = [0,0];
     var cur_left = 0;
     var cur_top = 0;
     for(var i = 0; i<map.length;i++){
@@ -70,7 +70,7 @@ function map_create_random(width,height) {
         else{
             cur_left = 0;
         }
-    }
+    }*/
 
     return map;
 }
@@ -93,13 +93,17 @@ function map_display(map) {
     }
 }
 function map_get_field(obj) {
-    var imagePath = ''+map_images[obj["implement"]];
-    return '<div id="'+obj["id"]+'" class="field" style="' +
-        'width:'+map_field_def_size_w+'px;' +
+    var imagePath = ''+map_images2[obj["implement"]];
+    var id = ''+obj["id"].toString();
+    return '<div id="'+obj["id"]+'" class="map_field"' +
+        'style="width:'+map_field_def_size_w+'px;' +
         'height:'+map_field_def_size_h()+'px;' +
         'left:'+obj["left"]+';' +
         'top:'+obj["top"]+';' +
         'background-image:url('+imagePath+')">' +
+        '<div onclick="map_control_field_click(this)" class="map_field_hex_t"></div> ' +
+        '<div class="map_field_hex_m"></div> ' +
+        '<div class="map_field_hex_b"></div> ' +
         '</div>';
 }
 //#####################################################
@@ -119,6 +123,17 @@ function map_field_def_size_seiten() {
     return map_field_def_size_w/(Math.sqrt(3));
 }
 function map_field_def_size_ws_h() {
-    console.log(map_field_def_size_w/2);
     return Math.sqrt((map_field_def_size_seiten()*map_field_def_size_seiten())-((map_field_def_size_w/2)*(map_field_def_size_w/2)));
+}
+//#####################################################
+function map_field_hex_update() {
+    var styles1 = {
+        'position': 'relative',
+        'width': '200px',
+        'height': '115.47px',
+        'margin': '57.74px 0',
+        'background-color:':'saddlebrown'
+    };
+    $('.hex').css(styles1);
+    console.log("done");
 }
