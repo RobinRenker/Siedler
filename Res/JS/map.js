@@ -4,7 +4,7 @@ $(document).keydown(function (e) {
             menu_top_height_intent = 100;
         }
     } else {
-        map = map_create_random(50, 50);
+        map = map_create_random(30, 30);
         map_display(map);
         map_control_resize(0);
     }
