@@ -62,34 +62,37 @@ body{
 .map_field {
     margin: 0px 0px 0px 0px;
     float: left;
-    background-color: transparent;
     background-size: cover;
-    overflow: hidden;
+    position: absolute;
+    z-index: 30;
+}
+.map_field_rel{
+    margin:0;
+    padding: 0;
+    position: relative;
+    overflow: visible;
+}
+.hex{
     position: absolute;
 }
-.map_field_hex_t{
-    width: 0;
-    border-bottom-style: solid;
-    border-bottom-color: #6C6;
-    border-left-style: solid;
-    border-left-color: transparent;
-    border-right-style: solid;
-    border-right-color: transparent;
+.hex:hover{
+    background-color: red;
 }
-.map_field_hex_m{
-
-    background-color: #6C6;
+.hex_1{
+    -ms-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
 }
-.map_field_hex_b{
-    width: 0;
-    border-top-style: solid;
-    border-top-color: #6C6;
-    border-left-style: solid;
-    border-left-color: transparent;
-    border-right-style: solid;
-    border-right-color: transparent;
+.hex_2{
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
-
+.hex_3{
+    -ms-transform: rotate(150deg);
+    -webkit-transform: rotate(150deg);
+    transform: rotate(150deg);
+}
 
 
 

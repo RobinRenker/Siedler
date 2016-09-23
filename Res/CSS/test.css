@@ -1,73 +1,33 @@
-body {
-    overflow: hidden;
-    background-color: #3585c4;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.head {
-    white-space: nowrap;
-    margin-top: 50vh;
-    height: 100%;
-    transform: translate(0%, -50%);
-    text-align: center;
-}
-
-.head .text {
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    cursor: default;
+.testWrap{
+    background-color: black;
+    width: 200px;
+    height: 115.47px;
     margin: 0;
-    font-size: 20vw;
-}
-
-.head h1 {
-    display: inline-block;
-    width: 60vw;
-    line-height: 1;
-    height: 21vw;
-}
-
-.head .back {
-    background-color: #3585c4;
-    position: fixed;
     padding: 0;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    left: 0;
-    transition: background 0.5s linear;
-    width: 100%;
-    height: 300vh;
-    margin: -50vh 0 0;
-    pointer-events: none;
-    z-index: -100;
+    position: relative;
+    overflow: visible;
+    margin: 100px;
 }
-
-.head .dot {
-    transition: all 0.8s linear, height 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), width 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    height: 4vw;
-    width: 4vw;
-    display: inline-block;
-    border-radius: 100%;
-    background-color: #333;
+.hex{
+    position: absolute;
+    background-color: red;
+    width: 115.47px;
+    height:200px;
+    margin:0 42.265px;
+    top: -42.265px;
 }
-
-.head h1:hover .back {
-    background-color: #333;
+.hex_1{
+    -ms-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
 }
-
-.head h1:hover .text {
-    font-size: 0vw;
-    opacity: 0;
+.hex_2{
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
-
-.head h1:hover .dot {
-    height: 20vw;
-    width: 20vw;
-    border-radius: 10%;
-    background-color: #3585c4;
+.hex_3{
+    -ms-transform: rotate(150deg);
+    -webkit-transform: rotate(150deg);
+    transform: rotate(150deg);
 }

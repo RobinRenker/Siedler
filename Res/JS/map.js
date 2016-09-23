@@ -1,26 +1,14 @@
-//#####################################################
-$(window).resize(function () {
-    map_resize();
-});
 $(document).keydown(function (e) {
-    if(e.which == 38){
-        map = map_create_random(10,10);
+    if (e.which != 38) {
+        if (e.which == 39) {
+            menu_top_height_intent = 100;
+        }
+    } else {
+        map = map_create_random(50, 50);
         map_display(map);
         map_control_resize(0);
     }
-    else if(e.which == 40){
-        console.log("map width: "+$('#map').width());
-        console.log("map height: "+$('#map').height());
-        console.log("field width: "+$('.map_field').width());
-        console.log("field height: "+$('.map_field').height());
-    }
-    else if(e.which == 39){
-        map_field_hex_update();
-    }
 });
-function map_resize() {
-
-}
 //#####################################################
 function map_json_to_array(json) {
     var dummyMap = new Array(json.length);
@@ -34,7 +22,7 @@ function map_json_to_array(json) {
     }
     return dummyMap;
 }
-function map_update() {
+function map_array_to_json() {
 
 }
 function map_create_random(width,height) {
@@ -86,36 +74,35 @@ function map_get_master(map) {
     return ret;
 }
 function map_display(map) {
+    var nmap;
     for(var i = 0; i<map.length;i++){
         for(var y = 0; y<map[i].length;y++){
-            $('#map').html($('#map').html() + map_get_field(map[i][y]));
+            //$('#map').html($('#map').html() + map_create_field(map[i][y]));
+            nmap = nmap + map_create_field(map[i][y]);
         }
     }
+    $('#map').html(nmap);
 }
-function map_get_field(obj) {
-    var imagePath = ''+map_images2[obj["implement"]];
-    var id = ''+obj["id"].toString();
-    return '<div id="'+obj["id"]+'" class="map_field"' +
-        'style="width:'+map_field_def_size_w+'px;' +
-        'height:'+map_field_def_size_h()+'px;' +
-        'left:'+obj["left"]+';' +
-        'top:'+obj["top"]+';' +
-        'background-image:url('+imagePath+')">' +
-        '<div onclick="map_control_field_click(this)" class="map_field_hex_t"></div> ' +
-        '<div class="map_field_hex_m"></div> ' +
-        '<div class="map_field_hex_b"></div> ' +
+function map_create_field(obj) {
+    var part1 =  '<div id="'+obj["id"]+'" class="map_field">';
+
+    var part2 = '</div>';
+
+    return part1+map_create_field_hex(obj)+part2;
+}
+function map_create_field_hex(obj) {
+    var colorCl = obj["implement"];
+    var id = obj["id"];
+    var ret = '<div ' +
+        'class="map_field_rel">' +
+        '<div onclick="map_control_field_click('+id+')" class="hex hex_1 '+colorCl+'"></div>' +
+        '<div onclick="map_control_field_click('+id+')" class="hex hex_2 '+colorCl+'"></div>' +
+        '<div onclick="map_control_field_click('+id+')" class="hex hex_3 '+colorCl+'"></div>' +
         '</div>';
+
+    return ret;
 }
 //#####################################################
-function map_number_get_mid(num) {
-    if(num%2 == 0){
-        return num/2;
-    }
-    else{
-        num = num-1;
-        return num/2+1;
-    }
-}
 function map_field_def_size_h() {
     return Math.sqrt((map_field_def_size_w*map_field_def_size_w)+(map_field_def_size_seiten()*map_field_def_size_seiten()));
 }
@@ -126,14 +113,3 @@ function map_field_def_size_ws_h() {
     return Math.sqrt((map_field_def_size_seiten()*map_field_def_size_seiten())-((map_field_def_size_w/2)*(map_field_def_size_w/2)));
 }
 //#####################################################
-function map_field_hex_update() {
-    var styles1 = {
-        'position': 'relative',
-        'width': '200px',
-        'height': '115.47px',
-        'margin': '57.74px 0',
-        'background-color:':'saddlebrown'
-    };
-    $('.hex').css(styles1);
-    console.log("done");
-}

@@ -78,8 +78,6 @@ function map_control_resize_mappos(val) {
         ];
 
         $('#map_abs')
-            //.width(($('#map_abs').width()+todoPercW)+"px")
-            //.height(($('#map_abs').height()+todoPercH)+"px");
             .height(perfMapSize[0]+"px")
             .width(perfMapSize[1]+"px");
         $('#map')
@@ -105,13 +103,23 @@ function map_control_resize_mappos(val) {
 }
 function map_control_resize_field(val) {
     map_field_def_size_w = map_field_def_size_w+ (map_field_def_size_w/100)*val;
-    $('.map_field').each(function () {
+    /*$('.map_field').each(function () {
         $(this)
             .width(map_field_def_size_w)
-            .height(map_field_def_size_h());
+            .height(map_field_def_size_seiten());
     });
+    $('.map_field_rel').each(function () {
+        $(this)
+            .width(map_field_def_size_w)
+            .height(map_field_def_size_seiten());
+    });*/
+    $('.map_field')
+        .width(map_field_def_size_w)
+        .height(map-map_field_def_size_seiten());
+    $('.map_field_rel')
+        .width(map_field_def_size_w)
+        .height(map-map_field_def_size_seiten());
 
-    var master = map_get_master(map);
     var smallest = map_control_read_pos_smallest();
 
     for(var i = 0; i<map.length;i++){
@@ -134,21 +142,14 @@ function map_control_resize_field(val) {
     }
 }
 function map_control_resize_hex() {
-    var vwidth1 = map_field_def_size_ws_h();
-    var vwidth2 = map_field_def_size_w/2;
-    var stylesT = {
-        'border-bottom-width':vwidth1,
-        'border-left-width':vwidth2,
-        'border-right-width':vwidth2
-    };
-    var stylesB = {
-        'border-top-width':vwidth1,
-        'border-left-width':vwidth2,
-        'border-right-width':vwidth2
-    }
-    $('.map_field_hex_t').css(stylesT);
-    $('.map_field_hex_b').css(stylesB);
-    $('.map_field_hex_m').width(map_field_def_size_w).height(map_field_def_size_seiten());
+    var mar1 = (map_field_def_size_w-map_field_def_size_seiten())/2;
+    $('.hex')
+        .width(map_field_def_size_seiten())
+        .height(map_field_def_size_w)
+        .css({
+            'margin-left':mar1+"px",
+            'top':(-mar1)+"px"
+        });
 }
 function map_control_drag_leave() {
     map_control_mouse_down = false;
