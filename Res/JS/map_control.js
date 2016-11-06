@@ -103,16 +103,6 @@ function map_control_resize_mappos(val) {
 }
 function map_control_resize_field(val) {
     map_field_def_size_w = map_field_def_size_w+ (map_field_def_size_w/100)*val;
-    /*$('.map_field').each(function () {
-        $(this)
-            .width(map_field_def_size_w)
-            .height(map_field_def_size_seiten());
-    });
-    $('.map_field_rel').each(function () {
-        $(this)
-            .width(map_field_def_size_w)
-            .height(map_field_def_size_seiten());
-    });*/
     $('.map_field')
         .width(map_field_def_size_w)
         .height(map-map_field_def_size_seiten());

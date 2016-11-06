@@ -8,10 +8,14 @@
 </head>
 <body>
     <div id="menu_side">
-
+        <div class="menu_side_sec" id="menu_side_sec_map"></div>
     </div>
     <div id="menu_top">
-
+        <button class="menu_top_button def_button" onclick="menu_side_hide();">Test Button</button>
+        <div class="menu_top_button_spacer"></div>
+        <button class="menu_top_button def_button" onclick="menu_side_hide();">Blala</button>
+        <div class="menu_top_button_spacer"></div>
+        <button class="menu_top_button def_button" onclick="menu_side_hide(); menu_side_show('menu_side_sec_map')">Map</button>
     </div>
     <div id="mapcont" class="s_max_window_size">
         <div id="mapcont_rel">
@@ -25,6 +29,7 @@
     </div>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://robinrenker.com/stu/base.js"></script>
 <script type="text/javascript" src="Res/JS/m.js"></script>
 <script type="text/javascript" src="Res/JS/var.js"></script>
 <script type="text/javascript" src="Res/JS/menu.js"></script>

@@ -1,10 +1,4 @@
 //############################################################
-//Menu
-menu_top_height_def = 50;
-menu_side_width_def = 50;
-menu_top_height_intent = 50;
-menu_side_width_intent = 100;
-//############################################################
 //Map_Control
 map_control_getting_dragged = false;
 map_control_mouse_down = false;
