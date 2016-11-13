@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="Res/CSS/main.css">
+    <link type="text/css" rel="stylesheet" href="Res/CSS/implements.css">
+</head>
+<body>
+    <div id="menu_side">
+        <div class="menu_side_sec" id="menu_side_sec_map">
+            <button class="menu_button menu_side_sec_b" id="menu_create_map">Cr. Map</button>
+            <div class="menu_side_sec_s"></div>
+            <input placeholder="X" class="menu_side_sec_b_i" id="menu_create_map_x">
+            <div class="menu_side_sec_s"></div>
+            <input placeholder="Y" class="menu_side_sec_b_i" id="menu_create_map_y">
+        </div>
+    </div>
+    <div id="menu_top">
+        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show(null,0)">X</button>
+        <div class="menu_top_button_spacer"></div>
+        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show(null,300)">Blala</button>
+        <div class="menu_top_button_spacer"></div>
+        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show('menu_side_sec_map',100)">Map</button>
+    </div>
+    <div id="mapcont" class="s_max_window_size">
+        <div id="mapcont_rel">
+            <div id="map_abs" draggable="false">
+                <div id="map">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://robinrenker.com/stu/base.js"></script>
+<script type="text/javascript" src="Res/JS/m.js"></script>
+<script type="text/javascript" src="Res/JS/var.js"></script>
+<script type="text/javascript" src="Res/JS/menu.js"></script>
+<script type="text/javascript" src="Res/JS/map.js"></script>
+<script type="text/javascript" src="Res/JS/map_control.js"></script>
+<script type="text/javascript" src="Res/JS/listener.js"></script>
+</html>
