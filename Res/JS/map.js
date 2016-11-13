@@ -4,9 +4,7 @@ $(document).keydown(function (e) {
             menu_top_height_intent = 100;
         }
     } else {
-        map = map_create_random(30, 30);
-        map_display(map);
-        map_control_resize(0);
+        console.log(map[map.length-1]);
     }
 });
 //#####################################################
@@ -25,61 +23,21 @@ function map_json_to_array(json) {
 function map_array_to_json() {
 
 }
-function map_create_random(width,height) {
-    var map = new Array(width);
-
-    for(var i = 0; i<map.length; i++){
-        map[i] = new Array(height);
-        for(var y = 0; y < map[i].length; y++){
+function map_create_random(w, h) {
+    var maptmp = new Array();
+    for(var i = 0; i < h; i++){
+        for(var y = 0; y < w; y++){
             var implements = Math.floor((Math.random()*map_implements.length)+1);
             var value = Math.floor(Math.random()*map_max_value);
-            var master = false;
-            if(i == 0 && y == 0){
-                master = true;
-            }
-
-            map[i][y] = {"id":"field"+i+"_"+y,"master":master,"implement":map_implements[implements-1],"value":value,"left":0,"top":0};
+            maptmp[maptmp.length] = {"id":"field"+i+"_"+y,"implement":map_implements[implements-1],"value":value,"left":0,"top":0};
         }
     }
-
-    /*var master_marging = [0,0];
-    var cur_left = 0;
-    var cur_top = 0;
-    for(var i = 0; i<map.length;i++){
-        for(var y = 0; y<map[i].length;y++){
-            map[i][y]["top"] = cur_top +"px";
-            map[i][y]["left"] = cur_left+"px";
-            cur_left = cur_left + map_field_def_size_w;
-        }
-        cur_top = cur_top + map_field_def_size_h()-map_field_def_size_ws_h();
-        if(cur_left%map_field_def_size_w == 0){
-            cur_left = map_field_def_size_w/2;
-        }
-        else{
-            cur_left = 0;
-        }
-    }*/
-
-    return map;
-}
-function map_get_master(map) {
-    var ret = null;
-    for(var i = 0; i<map.length; i++){
-        for(var y = 0;y<map[i].length;y++){
-            if(map[i][y].master == true){
-               ret = [i,y];
-            }
-        }
-    }
-    return ret;
+    return maptmp;
 }
 function map_display(map) {
-    var nmap;
+    var nmap = "";
     for(var i = 0; i<map.length;i++){
-        for(var y = 0; y<map[i].length;y++){
-            //$('#map').html($('#map').html() + map_create_field(map[i][y]));
-            nmap = nmap + map_create_field(map[i][y]);
-        }
+        nmap = nmap + map_create_field(map[i]);
     }
     $('#map').html(nmap);
 }

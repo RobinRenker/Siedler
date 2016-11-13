@@ -69,13 +69,6 @@ input:focus{
     z-index: 50;
     left:0px;
     top:50px;
-    animation-name: menu_side_animation_i;
-    animation-duration: 0.1s;
-}
-#menu_side:hover{
-    animation-name: menu_side_animation_o;
-    animation-duration: 0.1s;
-    animation-fill-mode: forwards;
 }
 .menu_side_sec{
     width: 100%;
@@ -105,14 +98,7 @@ input:focus{
     background-color: var(--menu-color-1);
     text-align: center;
 }
-@keyframes menu_side_animation_o {
-    from {width:50px}
-    to {width: 100px}
-}
-@keyframes menu_side_animation_i {
-    from {width:100px}
-    to {width: 50px}
-}
+
 /*#################################################*/
 /*Map*/
 #mapcont{

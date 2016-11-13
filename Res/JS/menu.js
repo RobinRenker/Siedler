@@ -27,6 +27,9 @@ function menu_side_hide() {
         $(this).css({'visibility':'hidden'});
     });
 }
-function menu_side_show(id) {
-    $('#'+id).css({'visibility':'visible'});
+function menu_side_show(id, width) {
+    if(id != null){
+        $('#'+id).css({'visibility':'visible'});
+    }
+    $('#menu_side').animate({width: width+"px"}, {queue: false, duration: 150});
 }

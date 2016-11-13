@@ -17,11 +17,11 @@
         </div>
     </div>
     <div id="menu_top">
-        <button class="menu_button def_button" onclick="menu_side_hide();">Test Button</button>
+        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show(null,0)">X</button>
         <div class="menu_top_button_spacer"></div>
-        <button class="menu_button def_button" onclick="menu_side_hide();">Blala</button>
+        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show(null,300)">Blala</button>
         <div class="menu_top_button_spacer"></div>
-        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show('menu_side_sec_map')">Map</button>
+        <button class="menu_button def_button" onclick="menu_side_hide(); menu_side_show('menu_side_sec_map',100)">Map</button>
     </div>
     <div id="mapcont" class="s_max_window_size">
         <div id="mapcont_rel">

@@ -61,7 +61,6 @@ function map_control_resize(val) {
     map_control_resize_hex();
 }
 function map_control_resize_mappos(val) {
-    var sizeOld = [$('#map_abs').width(),$('#map_abs').height()];
     var todoPercW = ($('#map_abs').width()/100)*val;
     var todoPercH = ($('#map_abs').height()/100)*val;
     var perfMapSize = map_control_get_perf_map_size(map);
@@ -110,25 +109,18 @@ function map_control_resize_field(val) {
         .width(map_field_def_size_w)
         .height(map-map_field_def_size_seiten());
 
-    var smallest = map_control_read_pos_smallest();
+    var smallest = map_control_get_smallest_pos(map);
 
-    for(var i = 0; i<map.length;i++){
-        var rowSmallest;
-        for(var y = 0; y<map[i].length;y++){
-            var elPos = map_control_read_pos(map[i][y]["id"]);
-            if(y == 0){
-                rowSmallest = elPos;
-            }
+    for(var i = 0; i < map.length; i++){
+        var elPos = map_control_read_pos(map[i]["id"]);
+        var vTop = map_control_num_diff(smallest['y'],elPos[0])*(map_field_def_size_h()-map_field_def_size_ws_h());
+        var vLeft = map_control_num_diff(smallest['x'],elPos[1])*map_field_def_size_w;
 
-            var vTop = map_control_num_diff(smallest[0],elPos[0])*(map_field_def_size_h()-map_field_def_size_ws_h());
-            var vLeft = map_control_num_diff(rowSmallest[1],elPos[1])*map_field_def_size_w;
-
-            if(elPos[0]%2 != 0 || elPos[0]%2 != -0){
-                vLeft = vLeft+(map_field_def_size_w/2);
-            }
-
-            $('#'+map[i][y]["id"]).css({top:vTop,left:vLeft});
+        if(elPos[0]%2 != 0 || elPos[0]%2 != -0){
+            vLeft = vLeft+(map_field_def_size_w/2);
         }
+
+        $('#'+map[i]["id"]).css({top:vTop,left:vLeft});
     }
 }
 function map_control_resize_hex() {
@@ -159,11 +151,6 @@ function map_control_read_pos(id){
     var ret = ret.split("_");
     return [parseInt(ret[0]),parseInt(ret[1])];
 }
-function map_control_read_pos_smallest(){
-    var curEl = map_control_read_pos(map[0][0]["id"]);
-
-    return [curEl[0],curEl[1]];
-}
 function map_control_num_diff(num1, num2) {
     if(num1 > num2){
         var tmp = num1;
@@ -177,14 +164,45 @@ function map_control_num_diff(num1, num2) {
     }
     return c;
 }
-function map_control_get_perf_map_size(map) {
+function map_control_get_perf_map_size(mapX) {
     var ret = [0,0];
-    ret[0] = map.length*(map_field_def_size_h()-map_field_def_size_ws_h())+map_field_def_size_ws_h();
-    for(var i = 0; i <map.length;i++){
-        if(ret[1]<map[i].length){
-            ret[1] = map[i].length;
+    var smal = map_control_get_smallest_pos(mapX);
+    var big = map_control_get_biggest_pos(mapX);
+    var widthC = big['x'] - smal['x'];
+    var heightC = big['y'] - smal['y'];
+    ret[0] = (1+heightC)*(map_field_def_size_h()-map_field_def_size_ws_h())+map_field_def_size_ws_h();
+    ret[1] = (1+widthC)*map_field_def_size_w+(map_field_def_size_w/2);
+    return ret;
+}
+function map_control_get_smallest_pos(m) {
+    var smallest = null;
+    for(var i = 0; i <m.length;i++){
+        var cur = map_control_read_pos(m[i]['id']);
+        if(smallest == null){
+            smallest = {'x':cur[1],'y':cur[0]};
+        }
+        else if(smallest['y'] > cur[0]) {
+            smallest = {'x':cur[1],'y':cur[0]};
+        }
+        else if(smallest['y'] == cur[0] && smallest['x'] > cur[1]){
+            smallest['x'] = cur[1];
         }
     }
-    ret[1] = ret[1]*map_field_def_size_w+(map_field_def_size_w/2);
-    return ret;
+    return smallest;
+}
+function map_control_get_biggest_pos(m) {
+    var biggest = null;
+    for(var i = 0; i <m.length;i++){
+        var cur = map_control_read_pos(m[i]['id']);
+        if(biggest == null){
+            biggest = {'x':cur[1],'y':cur[0]};
+        }
+        else if(biggest['y'] < cur[0]) {
+            biggest = {'x':cur[1],'y':cur[0]};
+        }
+        else if(biggest['y'] == cur[0] && biggest['x'] < cur[1]){
+            biggest['x'] = cur[1];
+        }
+    }
+    return biggest;
 }
